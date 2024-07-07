@@ -1,0 +1,34 @@
+From 077bbd32e8b7474dc5f153997732e1e6aec7fad6 Mon Sep 17 00:00:00 2001
+Message-Id: <077bbd32e8b7474dc5f153997732e1e6aec7fad6.1697120796.git.joerg.sommer@navimatix.de>
+From: =?UTF-8?q?J=C3=B6rg=20Sommer?= <joerg.sommer@navimatix.de>
+Date: Thu, 12 Oct 2023 16:22:59 +0200
+Subject: [PATCH] netconfig: remove tcp6, udp6 on --disable-ipv6
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+If the configuration for IPv6 is disabled, the netconfig should not contain
+settings for tcp6 and udp6.
+
+The test for the configure option didn't work, because it check the wrong
+variable.
+
+Signed-off-by: Jörg Sommer <joerg.sommer@navimatix.de>
+Upstream-Status: Submitted [libtirpc-devel@lists.sourceforge.net]
+Upstream-Status: Submitted [linux-nfs@vger.kernel.org]
+---
+
+--- a/bootmisc.sh
++++ b/bootmisc.sh
+@@ -58,6 +58,11 @@
+ fi
+ 
+ #
++# Turn USB on
++#
++echo connect > /sys/class/udc/13580000.usb/soft_connect
++
++#
+ # This is as good a place as any for a sanity check
+ #
+ # Set the system clock from hardware clock
